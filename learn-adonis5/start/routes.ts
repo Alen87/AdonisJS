@@ -23,3 +23,20 @@ import Route from '@ioc:Adonis/Core/Route'
 Route.get('/', async ({ view }) => {
   return view.render('welcome')
 })
+
+
+Route.get('/test' ,async ()=>{
+return 'working'
+})
+
+
+Route.get('/posts',()=>{})      // listing posts
+Route.get('/posts/1',async ()=>{})  // get single post
+Route.post('/posts',async ()=>{})  // creating a post
+Route.put('/posts/1',async ()=>{})  // updating a post
+Route.delete('/posts/1',async()=>{})  //deleting a post
+
+// Route.any('/posts', async()=>{})
+
+Route.on('/testing').redirectToPath('https://duckduckgo.com')
+
