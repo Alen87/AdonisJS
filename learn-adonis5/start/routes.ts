@@ -20,7 +20,8 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
-import 'App/Modules/Posts/routes'
+
+
 
 Route.where('id',{
   match:/^[0-9]+$/,
@@ -35,13 +36,15 @@ Route.get('/img/:userId/*',async({params})=>{
 
 
 Route.get('/', async ( ctx ) => {
+  const postsUrl = Route.makeUrl('posts.index')
+  return postsUrl
   return ctx.view.render('welcome')
 })
 
 
-Route.get('/posts', async ()=>'listing posts')
+Route.get('/posts', async ()=>'listing posts').as('posts.index')
 Route.get('/posts/:id', async ({params}) =>`get songle post with an id of ${typeof params.id}`)
-Route.post('/post', async ()=> 'creating a post')
+Route.post('/posts', async ()=> 'creating a post')
 Route.put('/posts/:id', async ({params})=> `updating a post with an id of ${params.id}`)
 Route.delete('/posts/:id' , async (ctx)=>`deleting a post with an id of ${ctx.params.id}`)
 
