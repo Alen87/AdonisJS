@@ -34,16 +34,18 @@ Route.get('/img/:userId/*',async({params})=>{
 
 
 
-Route.get('/', async ({ view }) => {
-  return view.render('welcome')
+Route.get('/', async ( ctx ) => {
+  return ctx.view.render('welcome')
 })
 
 
-Route.get('/test' ,async ()=>{
-return 'working'
-})
+Route.get('/posts', async ()=>'listing posts')
+Route.get('/posts/:id', async ({params}) =>`get songle post with an id of ${typeof params.id}`)
+Route.post('/post', async ()=> 'creating a post')
+Route.put('/posts/:id', async ({params})=> `updating a post with an id of ${params.id}`)
+Route.delete('/posts/:id' , async (ctx)=>`deleting a post with an id of ${ctx.params.id}`)
 
-
+Route.get('/posts/topics/:topic?',({params}) => `topic is ${params.topic}`).where('topic',Route.matchers.slug())
 
 
 Route.on('/testing').redirectToPath('https://duckduckgo.com')
