@@ -19,6 +19,7 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
+import './routes/api/v2/posts'
 
 
 
@@ -36,17 +37,29 @@ Route.get('/img/:userId/*',async({params})=>{
 
 
 Route.get('/', async ( ctx ) => {
-  const postsUrl = Route.makeUrl('posts.index')
+  const postsUrl = Route.makeUrl('posts.show', {id:1})
   return postsUrl
   return ctx.view.render('welcome')
 })
 
 
-Route.get('/posts', async ()=>'listing posts').as('posts.index')
-Route.get('/posts/:id', async ({params}) =>`get songle post with an id of ${typeof params.id}`)
-Route.post('/posts', async ()=> 'creating a post')
-Route.put('/posts/:id', async ({params})=> `updating a post with an id of ${params.id}`)
-Route.delete('/posts/:id' , async (ctx)=>`deleting a post with an id of ${ctx.params.id}`)
+Route.group(()=>{
+  Route.group(()=>{
+    Route.get('/', async ()=>'listing posts').as('index')
+    Route.get('/:id', async ({params}) =>`get songle post with an id of ${typeof params.id}`).as('show')
+    Route.post('/', async ()=> 'creating a post').as('store')
+    Route.put('/:id', async ({params})=> `updating a post with an id of ${params.id}`).as('update')
+    Route.delete('/:id' , async (ctx)=>`deleting a post with an id of ${ctx.params.id}`).as('destroy')
+  }).prefix('/posts').as('posts')
+  
+}).as('app')
+
+
+
+
+
+
+
 
 Route.get('/posts/topics/:topic?',({params}) => `topic is ${params.topic}`).where('topic',Route.matchers.slug())
 
