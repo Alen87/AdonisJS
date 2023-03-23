@@ -39,16 +39,56 @@ Route.get('/img/:userId/*',async({params})=>{
 
 
 Route.get('/', async ( ctx ) => {
-  const postsUrl = Route.makeUrl('posts.show', {id:1})
-  return postsUrl
+  const postsUrl = Route.makeUrl('app.posts.show', [1],{
+    qs:{
+      test:'testing-query-string',
+      another:'testing'
+    },
+    prefixUrl:'http://localhost:3333'
+  })
+
+
+  const postsUrlBuilder=Route.builder()
+  .qs({test:'this-is-a-test'})
+  .prefixUrl('/builder')
+  .params({id:1})
+  .make('app.posts.show')
+
+   const postsUrlSigned=Route.makeSignedUrl('/test-signature',{
+    expiresIn:'5s'
+   })
+
+
+  const postUrlBuilderSinged = Route.builder()
+  .makeSigned('/test-signature', {expiresIn:'1h'})
+
+
+
+
+  return {
+    postsUrl,
+    postsUrlBuilder,
+    postsUrlSigned,
+    postUrlBuilderSinged
+  }
   return ctx.view.render('welcome')
+
+
+})
+
+Route.get('/test-signature' ,async ({request,response})=>{
+ if( request.hasValidSignature()) {
+ return 'is valid'
+ }
+ return response.redirect().toRoute('app.posts.show',[1],{qs:{test:'test'}})
+ return 'is invalid'
 })
 
 
 Route.group(()=>{
   Route.group(()=>{
     Route.get('/', async ()=>'listing posts').as('index')
-    Route.get('/:id', async ({params}) =>`get songle post with an id of ${typeof params.id}`).as('show')
+    Route.get('/:id', async ({params}) =>`get single post with an id of ${typeof params.id}`).as('show')
     Route.post('/', async ()=> 'creating a post').as('store')
     Route.put('/:id', async ({params})=> `updating a post with an id of ${params.id}`).as('update')
     Route.delete('/:id' , async (ctx)=>`deleting a post with an id of ${ctx.params.id}`).as('destroy')
