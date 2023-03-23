@@ -19,7 +19,9 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
-import './routes/api/v2/posts'
+
+
+
 
 
 
@@ -64,5 +66,8 @@ Route.group(()=>{
 Route.get('/posts/topics/:topic?',({params}) => `topic is ${params.topic}`).where('topic',Route.matchers.slug())
 
 
-Route.on('/testing').redirectToPath('https://duckduckgo.com')
+Route.on('/testing').redirectToPath('https://duckduckgo.com');
+
+
+(async()=>await require('./routes/api'))()
 
