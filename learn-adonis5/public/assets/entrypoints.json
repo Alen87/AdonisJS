@@ -2,10 +2,17 @@
   "entrypoints": {
     "app": {
       "css": [
+<<<<<<< HEAD
         "http://localhost:8080/assets/app.css"
       ],
       "js": [
         "http://localhost:8080/assets/app.js"
+=======
+        "http://localhost:1968/assets/app.css"
+      ],
+      "js": [
+        "http://localhost:1968/assets/app.js"
+>>>>>>> proba1
       ]
     }
   }
