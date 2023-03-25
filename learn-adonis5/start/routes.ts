@@ -19,6 +19,7 @@
 */
 
 import Route from "@ioc:Adonis/Core/Route";
+import CommentsController from "App/Controllers/Http/CommentsController";
 import PostsController from "App/Controllers/Http/PostsController";
 
 Route.where("id", {
@@ -68,17 +69,14 @@ Route.get("/test-signature", async () => {
 
 // Route.resource('test','').mustBeSinged()
 
-Route.group(() => {
-  Route.group(() => {
-    Route.get("/", 'PostsController.index').as("index");
-    Route.get("/:id", 'PostsController.show').as("show");
-    Route.post("/", 'PostsController.store').as("store");
-    Route.put("/:id", 'PostsController.update' ).as("update");
-    Route.delete("/:id",'PostsController.destroy').as("destroy");
-  })
-    .prefix("/posts")
-    .as("posts");
-}).as("app");
+Route.group(()=>{
+   Route.resource('post','PostsController')
+   Route.shallowResource('posts.comments','CommentsController')
+}).as('app')
+ 
+
+
+
 
 
 Route.group(() => {
