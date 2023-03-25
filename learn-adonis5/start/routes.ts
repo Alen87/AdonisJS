@@ -19,6 +19,7 @@
 */
 
 import Route from "@ioc:Adonis/Core/Route";
+import PostsController from "App/Controllers/Http/PostsController";
 
 Route.where("id", {
   match: /^[0-9]+$/,
@@ -69,24 +70,33 @@ Route.get("/test-signature", async () => {
 
 Route.group(() => {
   Route.group(() => {
-    Route.get("/", async () => "listing posts").as("index");
-    Route.get(
-      "/:id",
-      async ({ params }) => `get single post with an id of ${typeof params.id}`
-    ).as("show");
-    Route.post("/", async () => "creating a post").as("store");
-    Route.put(
-      "/:id",
-      async ({ params }) => `updating a post with an id of ${params.id}`
-    ).as("update");
-    Route.delete(
-      "/:id",
-      async (ctx) => `deleting a post with an id of ${ctx.params.id}`
-    ).as("destroy");
+    Route.get("/", 'PostsController.index').as("index");
+    Route.get("/:id", 'PostsController.show').as("show");
+    Route.post("/", 'PostsController.store').as("store");
+    Route.put("/:id", 'PostsController.update' ).as("update");
+    Route.delete("/:id",'PostsController.destroy').as("destroy");
   })
     .prefix("/posts")
     .as("posts");
 }).as("app");
+
+
+Route.group(() => {
+  Route.group(() => {
+    Route.get("/", 'PostsController.index').as("index");
+    Route.get("/:id", 'PostsController.show').as("show");
+    Route.post("/", 'PostsController.store').as("store");
+    Route.put("/:id", 'PostsController.update' ).as("update");
+    Route.delete("/:id",'PostsController.destroy').as("destroy");
+  })
+    .prefix("/posts")
+    .as("posts");
+}).namespace('App/Admin/Controllers/Http').prefix('admin')
+
+
+
+
+
 
 Route.get(
   "/posts/topics/:topic?",
