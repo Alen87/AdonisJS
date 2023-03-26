@@ -3,6 +3,7 @@
     "app": {
       "css": [
 <<<<<<< HEAD
+<<<<<<< HEAD
         "http://localhost:8080/assets/app.css"
       ],
       "js": [
@@ -12,6 +13,12 @@
       ],
       "js": [
         "http://localhost:1968/assets/app.js"
+>>>>>>> proba1
+=======
+        "http://localhost:5716/assets/app.css"
+      ],
+      "js": [
+        "http://localhost:5716/assets/app.js"
 >>>>>>> proba1
       ]
     }

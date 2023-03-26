@@ -21,6 +21,14 @@
 import Route from "@ioc:Adonis/Core/Route";
 import CommentsController from "App/Controllers/Http/CommentsController";
 import PostsController from "App/Controllers/Http/PostsController";
+import DateService from "App/Service/DateService";
+
+
+Route.get('example', async()=>{
+  return DateService.toDate()
+})
+
+
 
 Route.where("id", {
   match: /^[0-9]+$/,
@@ -70,7 +78,7 @@ Route.get("/test-signature", async () => {
 // Route.resource('test','').mustBeSinged()
 
 Route.group(()=>{
-   Route.resource('post','PostsController')
+   Route.resource('posts','PostsController')
    Route.shallowResource('posts.comments','CommentsController')
 }).as('app')
  
