@@ -1,6 +1,16 @@
+import { inject } from '@adonisjs/core/build/standalone'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import DateService from 'App/Service/DateService'
 
+
+@inject()
 export default class PostsController {
+  
+  
+    public dateService = DateService
+  
+
+
   public async index({}: HttpContextContract) {
     return 'listing posts'
   }
@@ -8,7 +18,10 @@ export default class PostsController {
   public async create({}: HttpContextContract) {}
 
   public async store({}: HttpContextContract) {
-    return 'creating a post'
+     const dateTime=DateService.toDateTime()
+     const formattedDate = this.dateService.toDate(dateTime)
+    
+    return `creating a post ${formattedDate}`
   }
 
   public async show({params}: HttpContextContract) {
