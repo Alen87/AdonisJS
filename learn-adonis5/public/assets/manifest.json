@@ -1,14 +1,4 @@
 {
-<<<<<<< HEAD
-<<<<<<< HEAD
   "assets/app.css": "http://localhost:8080/assets/app.css",
   "assets/app.js": "http://localhost:8080/assets/app.js"
-=======
-  "assets/app.css": "http://localhost:1968/assets/app.css",
-  "assets/app.js": "http://localhost:1968/assets/app.js"
->>>>>>> proba1
-=======
-  "assets/app.css": "http://localhost:5716/assets/app.css",
-  "assets/app.js": "http://localhost:5716/assets/app.js"
->>>>>>> proba1
 }
