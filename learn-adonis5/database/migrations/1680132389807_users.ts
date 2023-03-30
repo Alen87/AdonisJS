@@ -1,5 +1,7 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
+
+
 export default class extends BaseSchema {
   protected tableName = 'users'
 
@@ -9,7 +11,7 @@ export default class extends BaseSchema {
       table.integer('role_id').unsigned().references('id').inTable('roles')
       table.string('email').unique().notNullable()
       table.string('username',50).unique().notNullable()
-      table.string('password',180).unique().notNullable()
+      table.string('password',180).notNullable()
       table.string('remember_me_token').nullable()
 
       /**
