@@ -1,4 +1,5 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
+import Roles from 'App/Enums/Roles'
 
 export default class extends BaseSchema {
   protected tableName = 'roles'
@@ -8,11 +9,23 @@ export default class extends BaseSchema {
       table.increments('id')
       table.string('name',50).notNullable()
 
+      this.defer(async (db) => {
+        await db.table('roles').insert([
+          { id: Roles.MEMBER, name: 'Member' },
+          { id: Roles.ADMIN, name: 'Admin' }
+        ])
+      })
+
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
+
+
+      
+    // defer the execution of the callback until after migrations have run
+   
     })
   }
 
