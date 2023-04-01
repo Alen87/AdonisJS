@@ -1,35 +1,31 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
-import Roles from 'App/Enums/Roles'
+import States from 'App/Enums/States'
 
 export default class extends BaseSchema {
-  protected tableName = 'roles'
+  protected tableName = 'states'
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.string('name',50).notNullable()
+      table.string('name').notNullable()
 
-      
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
-
-
-      
-    // defer the execution of the callback until after migrations have run
-   
     })
-    this.defer(async (db) => {
-      await db.table('roles').insert([
-        { id: Roles.MEMBER, name: 'Member' },
-        { id: Roles.ADMIN, name: 'Admin' }
-      ])
-    })    
- 
- 
+
+    this.defer(async (db) =>{
+     await db.table(this.tableName).multiInsert([{
+          id:States.PUBLIC,name:'Public'},{
+          id:States.UNLISTED,name:'Unlisted'},{
+          id:States.PRIVATE,name:'Private'    
+     }]) 
+    })
+
+
 
   }
 
