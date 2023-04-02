@@ -24,6 +24,11 @@ import PostsController from "App/Controllers/Http/PostsController";
 import DateService from "App/Service/DateService";
 
 
+Route.post('/topics/store' , 'TopicsController.store').as('topics.store')
+
+
+
+
 Route.get('example', async()=>{
   return DateService.toDate()
 })
