@@ -24,6 +24,8 @@ import PostsController from "App/Controllers/Http/PostsController";
 import DateService from "App/Service/DateService";
 
 
+
+Route.post('/users/store','UsersController.store').as('users.store')
 Route.post('/topics/store' , 'TopicsController.store').as('topics.store')
 
 
