@@ -26,6 +26,8 @@ import DateService from "App/Service/DateService";
 
 
 Route.post('/users/store','UsersController.store').as('users.store')
+
+Route.get('/topics','TopicsController.index').as('topics.index')
 Route.post('/topics/store' , 'TopicsController.store').as('topics.store')
 
 
